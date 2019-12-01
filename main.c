@@ -43,9 +43,16 @@ void ShowRingBuffer(RING_BUFFER*RingBuffer)
 int main(int argc, char *argv[]) 
 {
 	char str[7];
-
-	while(fgets(str, sizeof(str), stdin)){
-        printf("%s", str);
+	RING_BUFFER Buffer;
+	Init_RING_BUFFER(&Buffer);
+	while (fgets(str, sizeof(str), stdin))
+	{
+		if(strcmp(str, "-1"))
+			printf("%s", popRingBuffer(&Buffer));
+		else if (strcmp(str, "0"))
+			ShowRingBuffer(&Buffer);
+		else
+			pushRingBuffer(&Buffer, str);
 	}
 
 	return 0;
